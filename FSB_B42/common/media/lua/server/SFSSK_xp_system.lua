@@ -36,4 +36,4 @@ local function onGainXP(player, perk, amount)
     md.FSB_ApplyingXP = false
 end
 
-FSB.registerEvent({ "OnGainXP", "AddXP" }, onGainXP)
+Events.OnGainXP.Add(onGainXP)

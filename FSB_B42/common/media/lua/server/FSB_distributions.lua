@@ -53,4 +53,4 @@ local function addBookLoot()
     safeAddToDistribution("SchoolLibraryBooks", "FSB_B42.BookStrength5", 3)
 end
 
-FSB.registerEvent("OnInitWorld", addBookLoot)
+Events.OnInitWorld.Add(addBookLoot)
