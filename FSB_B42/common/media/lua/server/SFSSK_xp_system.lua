@@ -1,57 +1,20 @@
-Events.OnGainXP.Add(function(player, perk, amount)
-    if not player then return end
-
-    -- Solo nos interesa Fitness y Strength
-    if perk ~= Perks.Fitness and perk ~= Perks.Strength then return end
-
-    --------------------------------------------------
-    -- 🧠 MULTIPLICADOR BASE (LIBROS)
-    --------------------------------------------------
-
-    local bookMultiplier = FSB.getBookMultiplier(player, perk)
-
-    --------------------------------------------------
-    -- 🔮 MULTIPLICADORES EXTERNOS (traits, otros mods)
-    --------------------------------------------------
-
-    local extraMultiplier = 1.0
-
-    if _G.GetExtraXPMultiplier then
-        extraMultiplier = _G.GetExtraXPMultiplier(player, perk) or 1.0
+local function onGainXP(player, perk, amount)
+    if not player or not perk or not amount then
+        return
     end
 
-    --------------------------------------------------
-    -- ⚡ MULTIPLICADOR FINAL
-    --------------------------------------------------
-
-    local finalMultiplier = bookMultiplier * extraMultiplier
-
-    -- Si no hay boost, no hacemos nada (optimización)
-    if finalMultiplier == 1.0 then return end
-
-    --------------------------------------------------
-    -- ❗ APLICAR XP CORRECTAMENTE
-    --------------------------------------------------
-
-    local xp = player:getXp()
-
-    -- Quitar XP base
-    xp:AddXP(perk, -amount)
-
-    -- Aplicar XP modificado
-    xp:AddXP(perk, amount * finalMultiplier)
-    
-end)
-Events.OnGainXP.Add(function(player, perk, amount)
-    if not player then return end
-
-    -- 🚫 evitar loop infinito
-    if player:getModData().FSB_ApplyingXP then return end
-
-    if perk ~= Perks.Fitness and perk ~= Perks.Strength then return end
+    -- Solo afecta Fitness y Strength
+    if perk ~= Perks.Fitness and perk ~= Perks.Strength then
+        return
+    end
 
     local md = player:getModData()
 
+    -- Evita bucles al reinyectar XP dentro del mismo evento
+    if md.FSB_ApplyingXP then
+        return
+    end
+
     local bookMultiplier = FSB.getBookMultiplier(player, perk)
 
     local extraMultiplier = 1.0
@@ -60,17 +23,17 @@ Events.OnGainXP.Add(function(player, perk, amount)
     end
 
     local finalMultiplier = bookMultiplier * extraMultiplier
+    if finalMultiplier <= 1.0 then
+        return
+    end
 
-    if finalMultiplier == 1.0 then return end
-
-    local xp = player:getXp()
-
-    -- 🔒 activar bandera
     md.FSB_ApplyingXP = true
 
+    local xp = player:getXp()
     xp:AddXP(perk, -amount)
     xp:AddXP(perk, amount * finalMultiplier)
 
-    -- 🔓 desactivar
     md.FSB_ApplyingXP = false
-end)
+end
+
+Events.OnGainXP.Add(onGainXP)
