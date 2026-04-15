@@ -33,13 +33,10 @@ function FSB.registerEvent(eventNames, callback)
 
     for _, eventName in ipairs(eventNames) do
         local eventTable = Events[eventName]
-        if type(eventTable) == "table" then
-            local addFn = rawget(eventTable, "Add")
-            if type(addFn) == "function" then
-                addFn(callback)
-                debugLog("Registered callback on Events." .. eventName)
-                return true
-            end
+        if eventTable and type(eventTable.Add) == "function" then
+            eventTable.Add(callback)
+            debugLog("Registered callback on Events." .. eventName)
+            return true
         end
     end
 
