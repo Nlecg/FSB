@@ -1,4 +1,8 @@
-Events.OnCreatePlayer.Add(function(playerIndex, player)
+local function onCreatePlayer(playerIndex, player)
+    if not player then
+        return
+    end
+
     local md = player:getModData()
 
     if md.FitnessBookLevel and md.FitnessBookLevel > 0 then
@@ -8,4 +12,6 @@ Events.OnCreatePlayer.Add(function(playerIndex, player)
     if md.StrengthBookLevel and md.StrengthBookLevel > 0 then
         print("Strength XP Boost activo: x" .. FSB.BOOK_MULTIPLIERS[md.StrengthBookLevel])
     end
-end)
+end
+
+FSB.registerEvent("OnCreatePlayer", onCreatePlayer)
