@@ -1,0 +1,81 @@
+module FSB_B42
+{
+       item BookFitness1
+    {
+        DisplayName = Fitness for Beginners,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookFitness2
+    {
+        DisplayName = Fitness Intermediate,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookFitness3
+    {
+        DisplayName = Fitness Advanced,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookFitness4
+    {
+        DisplayName = Fitness Expert,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookFitness5
+    {
+        DisplayName = Fitness Mastery,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+        item BookStrength1
+    {
+        DisplayName = Strength for Beginners,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookStrength2
+    {
+        DisplayName = Strength Intermediate,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookStrength3
+    {
+        DisplayName = Strength Advanced,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookStrength4
+    {
+        DisplayName = Strength Expert,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+
+    item BookStrength5
+    {
+        DisplayName = Strength Mastery,
+        Type = Literature,
+        Icon = Book,
+        Weight = 0.5,
+    }
+}
