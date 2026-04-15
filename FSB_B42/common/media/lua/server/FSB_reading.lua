@@ -1,5 +1,7 @@
-Events.OnReadLiterature.Add(function(player, item)
-    if not player or not item then return end
+local function onReadBook(player, item)
+    if not player or not item then
+        return
+    end
 
     local md = player:getModData()
     local fullType = item:getFullType()
@@ -35,4 +37,6 @@ Events.OnReadLiterature.Add(function(player, item)
     elseif fullType == "FSB_B42.BookStrength5" then
         md.StrengthBookLevel = math.max(md.StrengthBookLevel or 0, 5)
     end
-end)
+end
+
+FSB.registerEvent({ "OnReadLiterature", "ReadLiterature", "OnLiteratureRead" }, onReadBook)
